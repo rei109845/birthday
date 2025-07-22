@@ -1,0 +1,290 @@
+/* --- Global Base Styles --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-image: url("../assets/hearts.gif");
+  color: #333;
+  text-align: center;
+  padding: 50px 20px;
+  transition: background 0.5s ease-in-out;
+  overflow-x: hidden;
+  position: relative;
+}
+
+#mainContent {
+    background-color: rgba(255, 130, 178, 0.637);
+    padding: 20px;
+    border-radius: 15px;
+    background-color: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
+  animation: fadeSlideIn 1.5s ease forwards;
+}
+
+p {
+  font-size: 1.5em;
+  margin-top: 0;
+  animation: fadeIn 2s ease forwards;
+}
+
+.heart {
+  color: crimson;
+  font-size: 2em;
+  animation: pulse 1.2s infinite;
+}
+
+/* --- Typewriter --- */
+#typewriter {
+  font-size: 2.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 4px solid #ff6b81;
+  width: 0;
+  animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* --- Animations --- */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes fadeSlideIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* --- Buttons --- */
+.btn, .open-btn {
+  margin-top: 30px;
+  padding: 15px 30px;
+  font-size: 1em;
+  border: none;
+  background-color: #ff6b81;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(255, 107, 129, 0.4);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.btn:hover, .open-btn:hover {
+  background-color: #ff4757;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4);
+}
+
+.hidden {
+  display: none;
+  margin-top: 40px;
+}
+
+/* --- Gallery Styles --- */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 80px;
+}
+
+.photo {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  opacity: 0;
+  animation: fadeInGallery 1s forwards;
+}
+
+.photo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+/* Staggered fade-in */
+.gallery .photo:nth-child(n) {
+  animation-delay: calc((var(--i, 1) - 1) * 1s);
+}
+
+@keyframes fadeInGallery {
+  to { opacity: 1; }
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.2em;
+  }
+
+  p {
+    font-size: 1.2em;
+  }
+
+  .btn {
+    padding: 12px 25px;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8em;
+  }
+
+  p {
+    font-size: 1em;
+  }
+
+  .photo {
+    max-width: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+  }
+}
+
+/* --- Door Animation --- */
+.door-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #1a1a1a;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.door {
+  width: 50%;
+  height: 100%;
+  background: #ffb1bd;
+  position: absolute;
+  top: 0;
+  transition: transform 1s ease-in-out;
+  z-index: 2;
+}
+
+.left-door {
+  left: 0;
+  border-right: 2px solid #8f424d;
+}
+
+.right-door {
+  right: 0;
+  border-left: 2px solid #ff6b81;
+}
+
+.open-btn {
+  z-index: 3;
+  position: relative;
+}
+
+.door-open .left-door {
+  transform: translateX(-100%);
+}
+
+.door-open .right-door {
+  transform: translateX(100%);
+}
+
+#mainContent.hidden {
+  display: none;
+}
+
+/* --- Lightbox Modal --- */
+#lightbox {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  transition: opacity 0.3s ease;
+}
+
+#lightbox.hidden {
+  display: none;
+}
+
+.lightbox-img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(255,255,255,0.4);
+  animation: fadeIn 0.5s ease;
+}
+
+#lightbox .close {
+  position: absolute;
+  top: 20px; right: 30px;
+  font-size: 3em;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+#lightbox .close:hover {
+  transform: scale(1.2);
+}
+
+/* --- Falling Hearts --- */
+.falling-hearts::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/hearts.gif');
+  background-repeat: repeat;
+  background-size: contain;
+  pointer-events: none;
+  opacity: 50;
+  z-index: 1;
+}
+
+/* --- Background Stars --- */
+.star-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../assets/stars.gif');
+  background-size: cover;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 50%;
+}
+
